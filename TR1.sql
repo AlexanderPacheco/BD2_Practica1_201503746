@@ -24,7 +24,7 @@ BEGIN
         VALUES ('F4E6D8FB-DF45-4C91-9794-38E043FD5ACD', @idUser, 1)
     END
     ELSE BEGIN
-        PRINT N'[Error]Email ya registrado...'
+        PRINT N'[Error] Email ya registrado...'
     END
 END
         -- Usuarios
