@@ -23,7 +23,7 @@ apt update
 mysql> show databases;
 mysql> exit
 ```
-### CREANDO UN FULL BACKUP
+# Creando un Full Backup
     Creando una copia de seguridad
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
@@ -39,7 +39,7 @@ mysql> use DB4;				#Nos posicionamos en la BD a restaurar
 mysql> source /var/lib/mysql/FULL.sql;	#Especificamos la ruta de nuestro archivo backup a cargar
 mysql> exit
 ```
-### CREANDO UN BACKUP INCREMENTAL
+# Creando un Backup Incremental
     Creando una copia de seguridad
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
