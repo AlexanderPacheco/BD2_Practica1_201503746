@@ -17,17 +17,29 @@ EXEC Transaccion0
 EXEC TR1
     @firstname      = 'Alex',
     @lastname       = 'Ixvalan',
-    @email          = '2022@gmail.com',
+    @email          = 'alex04@gmail.com',
     @password       = 'alex123',
     @credits        = 236;
 
-DELETE FROM practica1.UsuarioRole;
-SELECT * FROM practica1.Usuarios;
-SELECT * FROM practica1.UsuarioRole;
+DELETE FROM practica1.UsuarioRole
+SELECT * FROM practica1.Usuarios
+SELECT * FROM practica1.Usuariorole
+SELECT * FROM practica1.ProfileStudent
+SELECT * FROM practica1.TFA
+SELECT * FROM practica1.Notification
+
+SELECT * FROM practica1.Roles;
+
+DESCRIBE practica1.Usuarios;
 
 EXEC TR2
     @email          = 'alex6@gmail.com',
     @codCourse      = 1;
+
+SELECT * FROM practica1.UsuarioRole
+SELECT * FROM practica1.TutorProfile
+SELECT * FROM practica1.CourseTutor
+SELECT * FROM practica1.Notification
 
 EXEC TR3
     @email          = 'alex@gmail.com',
