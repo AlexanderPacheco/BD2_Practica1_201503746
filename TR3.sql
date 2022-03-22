@@ -23,7 +23,7 @@ BEGIN
 
                     PRINT N'Verificando creditos estudiante...'
                     --SELECT @creditsStudent=Credits FROM practica1.ProfileStudent WHERE UserId=@idStudent
-                    --SELECT @creditsStudent=pf.Credits FROM practica1.ProfileStudent AS pf WHERE pf.UserId=@idStudent
+                    SELECT @creditsStudent=pf.Credits FROM practica1.ProfileStudent AS pf WHERE pf.UserId=@idStudent
 
                     SELECT @creditsCourse=cur.CreditsRequired, @idTutor=tut.TutorId FROM practica1.Course AS cur
                         INNER JOIN practica1.CourseTutor AS tut

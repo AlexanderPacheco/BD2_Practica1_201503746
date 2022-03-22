@@ -1,6 +1,6 @@
 # Instalando Bases de Datos con Docker
 
-### Comando instalación MSSQL
+### Comando instalación MSSQL Server
 
 ```bash
 docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong()Password" --name mssqlbd -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
@@ -28,10 +28,11 @@ mysql> exit
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
 # mysqldump -u root -p "DB4">FULL.sql		#Generamos un archivo con toda la data de la BD 'BD4', el archivo se llamara FULL.sql
+# mysqldump -u root -p "DB4">./FBackups/FULL.sql    #Genera el archivo full backup en la carpeta FBackups
 # cat FULL.sql					#Para ver la informacion de FULL.sql
 ```
 
-    Restaurando una BD desde una copia de seguridad(Debe estar la creada la BD en blanco)
+    Restaurando una BD desde una copia de seguridad full backup (Debe estar la creada la BD en blanco)
 ```
 # mysql -u root -p
 mysql> show databases;
@@ -44,16 +45,13 @@ mysql> exit
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
 # mysql -u root -p
-mysql> use DB4;				#Nos posicionamos en la BD
-mysql> flush logs;				#Crea un binario con el backup incremental
+mysql> use DB4;				    #Nos posicionamos en la BD
+mysql> flush logs;				#Crea un binario con el backup incremental, todo lo que se haga en la BD se guardara en el nuevo binario creado
+                                #El 'flush logs' se hace antes de guardar la nueva información, al crear otro binario con el comando flush se cierra el anterior
 ```
 
-    Restaurando una BD desde una copia de seguridad(Debe estar la creada la BD en blanco)
+    Restaurando una BD desde una copia de seguridad incremental (Debe estar la creada la BD en blanco)
 ```
-# mysql -u root -p
-mysql> show databases;
-mysql> use DB4;				#Nos posicionamos en la BD a restaurar
-mysql> source /var/lib/mysql/FULL.sql;	#Restauramos nuestra BD con full incremental
-mysql> exit
-/var/lib/mysql# mysqlbinlog binlog.000004 | mysql -u root -p "DB4"; #
+# cd /var/lib/mysql/                                #Nos posicionamos en la carpeta donde se encuentran los binarios
+# mysqlbinlog binglog.00000X | mysql -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
 ```
