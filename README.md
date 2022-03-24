@@ -53,5 +53,5 @@ mysql> flush logs;				#Crea un binario con el backup incremental, todo lo que se
     Restaurando una BD desde una copia de seguridad incremental (Debe estar la creada la BD en blanco)
 ```
 # cd /var/lib/mysql/                                #Nos posicionamos en la carpeta donde se encuentran los binarios
-# mysqlbinlog binglog.00000X | mysql -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
+# mysqlbinlog binlog.00000X | mysql -u root -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
 ```
