@@ -10,19 +10,68 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong()Password" --name mssql
 
 ```bash
 docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
+# Con un volumen
+docker run --name some-mysql -p 3306:3306 -v $(pwd)/ArchivosPractica2:/var/ArchivosPractica2 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
 
-
-
-## ABRIR CONTENEDOR MYSQL DOCKER
+### Ingresando a la base de datos en docker
 ```
 docker exec -it <Nombre contenedor> /bin/bash
 docker exec -it some-mysql /bin/bash
 apt update
+// Moviendo los archivos del volumen a la carpeta de datos mysql, carpeta ARCHIVOS2 tiene que estar creado
+# mv *.sql /var/lib/mysql/ARCHIVOSP2/
+// Nos ubicamos en /var/lib/mysql/
 # mysql -u root -p
 mysql> show databases;
-mysql> exit
 ```
+
+### Día #1
+
+>Cargando los datos del primer archivo
+```sql
+# Cargando archivo Carga1.sql
+mysql -u root -p
+show databases;
+use PRACTICA2;
+# Nuestros archivos estan en /var/lib/mysql/ARCHIVOSP2
+source /var/lib/mysql/ARCHIVOSP2/Carga1.sql;
+exit
+```
+>Creando Full Backup (Nos ubicamos dentro del contenedor)
+```
+# Entrando a donde se almacena la data de mysql
+cd /var/lib/mysql/
+# Generamos un archivo con toda la data de la BD 'PRACTICA2', el archivo se llamara FULLD1.sql
+mysqldump -u root -p "PRACTICA2">FULLD1.sql
+# Para ver la informacion de FULL.sql
+cat FULLD1.sql
+```
+>Creando Incremental Backup (Nos ubicamos dentro del contenedor)
+```sql
+# Entrando a donde se almacena la data de mysql
+# cd /var/lib/mysql/				
+mysql -u root -p
+# Nos posicionamos en la BD
+use PRACTICA2;	
+#Cremos binario del backup incremental	
+#El 'flush logs' se hace antes de guardar la nueva información, al crear otro binario con el comando flush se cierra el anterior	    
+flush logs;                 
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Creando un Full Backup
     Creando una copia de seguridad
 ```
@@ -53,5 +102,5 @@ mysql> flush logs;				#Crea un binario con el backup incremental, todo lo que se
     Restaurando una BD desde una copia de seguridad incremental (Debe estar la creada la BD en blanco)
 ```
 # cd /var/lib/mysql/                                #Nos posicionamos en la carpeta donde se encuentran los binarios
-# mysqlbinlog binglog.00000X | mysql -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
+# mysqlbinlog binlog.00000X | mysql -u root -p "PRACTICA2"       #Restauramos nuestro backup incremental indicando el binario y la BD 
 ```
