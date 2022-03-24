@@ -24,7 +24,7 @@ mysql> show databases;
 mysql> exit
 ```
 # Creando un Full Backup
-    Creando una copia de seguridad
+>Creando una copia de seguridad
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
 # mysqldump -u root -p "DB4">FULL.sql		#Generamos un archivo con toda la data de la BD 'BD4', el archivo se llamara FULL.sql
@@ -32,7 +32,7 @@ mysql> exit
 # cat FULL.sql					#Para ver la informacion de FULL.sql
 ```
 
-    Restaurando una BD desde una copia de seguridad full backup (Debe estar la creada la BD en blanco)
+>Restaurando una BD desde una copia de seguridad full backup (Debe estar la creada la BD en blanco)
 ```
 # mysql -u root -p
 mysql> show databases;
@@ -41,7 +41,7 @@ mysql> source /var/lib/mysql/FULL.sql;	#Especificamos la ruta de nuestro archivo
 mysql> exit
 ```
 # Creando un Backup Incremental
-    Creando una copia de seguridad
+>Creando una copia de seguridad
 ```
 # cd /var/lib/mysql/				#Entrando a donde se almacena la data de mysql
 # mysql -u root -p
@@ -50,7 +50,7 @@ mysql> flush logs;				#Crea un binario con el backup incremental, todo lo que se
                                 #El 'flush logs' se hace antes de guardar la nueva información, al crear otro binario con el comando flush se cierra el anterior
 ```
 
-    Restaurando una BD desde una copia de seguridad incremental (Debe estar la creada la BD en blanco)
+>Restaurando una BD desde una copia de seguridad incremental (Debe estar la creada la BD en blanco)
 ```
 # cd /var/lib/mysql/                                #Nos posicionamos en la carpeta donde se encuentran los binarios
 # mysqlbinlog binlog.00000X | mysql -u root -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
