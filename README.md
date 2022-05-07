@@ -40,6 +40,7 @@ mysql> use DB4;				#Nos posicionamos en la BD a restaurar
 mysql> source /var/lib/mysql/FULL.sql;	#Especificamos la ruta de nuestro archivo backup a cargar
 mysql> exit
 ```
+
 # Creando un Backup Incremental
 >Creando una copia de seguridad
 ```
@@ -55,3 +56,6 @@ mysql> flush logs;				#Crea un binario con el backup incremental, todo lo que se
 # cd /var/lib/mysql/                                #Nos posicionamos en la carpeta donde se encuentran los binarios
 # mysqlbinlog binlog.00000X | mysql -u root -p "BD4"       #Restauramos nuestro backup incremental indicando el binario y la BD 
 ```
+
+
+
