@@ -220,7 +220,7 @@ SELECT * FROM CUSTOMER;
 SELECT @@version AS Version;
 SELECT @@SERVERNAME AS Server_Name;
 
--- in Subscriber, we need to create the database, like a mirror (to set in context)
+-- NOTE! in Subscriber, we need to create the database, like a mirror (to set in context)
 
 -- create a test database
 CREATE DATABASE Sales;
