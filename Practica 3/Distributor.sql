@@ -1,5 +1,3 @@
---Select @@SERVERNAME as container, @@version SQL_VERSION
-
 -- make sure your on the right server
 SELECT @@version AS Version
 SELECT @@SERVERNAME AS Server_Name
@@ -10,8 +8,8 @@ EXEC sp_adddistributor @distributor = 'distributor', @password = 'Pa55w0rd!'
 -- step 2, create the distribution db
 EXEC sp_adddistributiondb @database = 'distribution';
 
--- step 3, tell the distributor who the publisher is 
--- NOTE! (make the directory '/var/opt/mssql/ReplData', 
+-- step 3 (Activación de agentes), tell the distributor who the publisher is
+-- NOTE! (make the directory '/var/opt/mssql/ReplData',
 -- it doesn't exist and this command will try and verify that it does)
 -- docker exec -it distributor bin/bash
 -- mkdir /var/opt/mssql/ReplData
@@ -24,10 +22,10 @@ USE distribution;
 GO
 
 -- see the repl commands table
-SELECT * 
+SELECT *
 FROM [dbo].[MSrepl_commands]
 
 -- and let's see the jobs we made
-SELECT name, date_modified 
-FROM msdb.dbo.sysjobs 
+SELECT name, date_modified
+FROM msdb.dbo.sysjobs
 ORDER by date_modified desc

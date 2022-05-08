@@ -98,7 +98,7 @@ exec sp_addpushsubscription_agent
 @active_start_date = 0, 
 @active_end_date = 19950101
 GO
--- by default it sets up the log reader agent with a default account that won’t work, you need to change that to something that will.
+-- by default it sets up the log reader agent with a default account that wonï¿½t work, you need to change that to something that will.
 EXEC sp_changelogreader_agent @publisher_security_mode = 0,
                               @publisher_login = 'sa',
                               @publisher_password = 'Pa55w0rd!';
