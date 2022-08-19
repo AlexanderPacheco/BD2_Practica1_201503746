@@ -30,3 +30,6 @@ services:
 # Register > Server
   # General > set a name
   # Connection > set host, port, username and password
+
+# Theme
+# File > Preferences > Miscellaneous > Themes > select a theme
