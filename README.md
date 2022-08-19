@@ -12,12 +12,32 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong()Password" --name mssql
 docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
 
-### Comando instalación Postgresql
+### Comando instalación Postgresql usando Docker Compose
 
-```bash
-docker run -d --name postgres-server -e POSTGRES_PASSWORD=12345 -p 5300:5432 postgres
+```yaml
+version: "3.8"
 
-docker run -d --name pgadmin -p 9200:80 -e PGADMIN_DEFAULT_PASSWORD=12345 -e PGADMIN_DEFAULT_EMAIL=alexixva@gmail.com dpage/pgadmin4
+services: 
+  postgres:
+    image: postgres
+    restart: always
+    environment: 
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=root
+    ports: 
+      - 5432:5432
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment: 
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "80:80"
+    depends_on: 
+      - postgres 
 ```
 
 ## ABRIR CONTENEDOR MYSQL DOCKER
