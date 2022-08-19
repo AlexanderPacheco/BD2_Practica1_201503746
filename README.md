@@ -12,9 +12,10 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=yourStrong()Password" --name mssql
 docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql
 ```
 
-### Comando instalación Postgresql usando Docker Compose
+### Comando instalación Postgresql usando docker-compose
 
 ```yaml
+#See file docker-compose.yml
 version: "3.8"
 
 services: 
