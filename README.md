@@ -16,6 +16,7 @@ docker run --name some-mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=my-secret-pw -d
 
 ```yaml
 #See file docker-compose.yml
+#sudo docker-compose up --build
 version: "3.8"
 
 services: 
