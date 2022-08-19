@@ -18,6 +18,10 @@ services:
       PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
       PGADMIN_DEFAULT_PASSWORD: "admin"
     ports:
-      - "80:80"
+      - 82:80
     depends_on: 
       - postgres 
+
+# sudo docker-compose up --build -d
+# sudo docker-compose up -d
+# NOTE: always check if the port is available
