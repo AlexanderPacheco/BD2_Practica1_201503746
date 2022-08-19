@@ -25,3 +25,8 @@ services:
 # sudo docker-compose up --build -d
 # sudo docker-compose up -d
 # NOTE: always check if the port is available
+
+# Create new server
+# Register > Server
+  # General > set a name
+  # Connection > set host, port, username and password
