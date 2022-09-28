@@ -40,6 +40,12 @@ mysql> use DB4;				#Nos posicionamos en la BD a restaurar
 mysql> source /var/lib/mysql/FULL.sql;	#Especificamos la ruta de nuestro archivo backup a cargar
 mysql> exit
 ```
+
+>Otra forma de restaurar una BD desde una copia de seguridad full backup (Debe estar la creada la BD en blanco)
+```
+# mysql -u root -p db_name < /route/script.sql
+```
+
 # Creando un Backup Incremental
 >Creando una copia de seguridad
 ```
