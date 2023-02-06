@@ -37,8 +37,6 @@ networks:
 # sudo docker-compose up -d
 # NOTE: always check if the port is available
 
-# Connet to docker postgresql
-# docker exec -it <container_id> psql -h localhost -U postgres --password -p 5432 postgres
 
 # Steps to create the connection between pgadmin y postgres14
 #   Create new server
@@ -48,6 +46,20 @@ networks:
 
 # Theme
 # File > Preferences > Miscellaneous > Themes > select a theme
+
+
+# Connect to docker postgresql terminal
+#   docker exec -it <container_id> psql -h localhost -U postgres --password -p 5432 postgres
+# Connect to postgres into the docker container
+#   docker exec -it <container_id> bash
+#   cd /var/lib/postgresql/data/ #Here is backup file
+#   psql -h localhost -U <my_user_postgres> -d <my_database> < <my_file_backup>
+# psql -h localhost -U postgres -d ConapBackend < <my_file_backup>
+
+
+# Restore database from backup
+#   docker exec -it <container_id> bash
+#   psql -h localhost -U postgres -d postgres
 
 # How do i get my postgres host
 # In this point, the bridge network driver assign a internal network between pgadmin and postgres, we need the host from postgres to use in pgadmin
