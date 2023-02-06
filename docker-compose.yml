@@ -1,16 +1,21 @@
-version: "3.8"
+version: '3.7'
 
 services: 
   postgres:
     image: postgres:14
     restart: always
     environment: 
-      - DATABASE_HOST=127.0.0.1
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=root
+      # - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - POSTGRES_PORT=5432
     ports: 
-      - 5432:5432
+      - "5432:5432"
+    networks:
+      - network_interna
+    volumes:
+      - ./data:/var/lib/postgresql/data
 
   pgadmin:
     image: dpage/pgadmin4
@@ -20,16 +25,65 @@ services:
     ports:
       - 82:80
     depends_on: 
-      - postgres 
+      - postgres
+    networks:
+      - network_interna
+
+networks:
+  network_interna:
+    driver: bridge
 
 # sudo docker-compose up --build -d
 # sudo docker-compose up -d
 # NOTE: always check if the port is available
 
-# Create new server
-# Register > Server
-  # General > set a name
-  # Connection > set host, port, username and password
+# Connet to docker postgresql
+# docker exec -it <container_id> psql -h localhost -U postgres --password -p 5432 postgres
+
+# Steps to create the connection between pgadmin y postgres14
+#   Create new server
+#   Register > Server
+#     General > set a name
+#     Connection > set host (See below section: How do i get my postgres host), port, username and password
 
 # Theme
 # File > Preferences > Miscellaneous > Themes > select a theme
+
+# How do i get my postgres host
+# In this point, the bridge network driver assign a internal network between pgadmin and postgres, we need the host from postgres to use in pgadmin
+# Run the next command to get the host
+#     docker network inspect <Network_id>
+# [
+#     {
+#         "Name": "databases_build_network_interna",
+#         "Id": "b52ce040abb79a0499a973e358fe53ae1729a61930aee52da064325a1addef0b",
+#         "Created": "2023-02-05T21:08:52.52792148-06:00",
+#         "Scope": "local",
+#         "Driver": "bridge",
+#         "EnableIPv6": false,
+#         "IPAM": {...},
+#         "Internal": false,
+#         "Attachable": false,
+#         "Ingress": false,
+#         "ConfigFrom": {...},
+#         "ConfigOnly": false,
+#         "Containers": {
+#             "2c6746c7c049416b29f2e1fadadbbca10e8c8cdb16bdff4bf3e982ecd724f52d": {
+#                 "Name": "databases_build-postgres-1", <<<<<<<< SERVICE NAME POSTGRES >>>>>>>>>>>>
+#                 "EndpointID": "f802d991c0c84a3440430484da3b6cdd5900651d943a06a2b10c1bc2cb59daf0",
+#                 "MacAddress": "02:42:ac:15:00:02",
+#                 "IPv4Address": "172.21.0.2/16", <<<<<<<< WE NEED THIS HOST DIRECTION >>>>>>>>>>>>
+#                 "IPv6Address": ""
+#             },
+#             "67dcf43420452c32b025bf6a739bfcfd58b98b204cb14d5bc8e9359769d383d3": {
+#                 "Name": "databases_build-pgadmin-1",
+#                 "EndpointID": "81b3158da64bcba89757e6c11504ceb61ff323cebd7ce81351aad3675f8e7f4a",
+#                 "MacAddress": "02:42:ac:15:00:03",
+#                 "IPv4Address": "172.21.0.3/16",
+#                 "IPv6Address": ""
+#             }
+#         },
+#         "Options": {},
+#         "Labels": {...}
+#     }
+# ]
