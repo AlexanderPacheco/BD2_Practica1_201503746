@@ -54,7 +54,7 @@ networks:
 #   docker exec -it <container_id> bash
 #   cd /var/lib/postgresql/data/ #Here is backup file
 #   psql -h localhost -U <my_user_postgres> -d <my_database> < <my_file_backup>
-# psql -h localhost -U postgres -d ConapBackend < <my_file_backup>
+#   psql -h localhost -U postgres -d ConapBackend < <my_file_backup>
 
 
 # Restore database from backup
